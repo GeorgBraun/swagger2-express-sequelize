@@ -61,7 +61,7 @@ Navigate your browser to http://localhost:10010/documents. You should get a JSON
 
 This response comes from the predefined SQLite database file `db.sqlite`, which is located in the root of the project folder.
 
-If you add a valid **id** to the URL, you should get an individual document. For example, <a href="http://localhost:10010/documents/2">http://localhost:10010/documents<b>/2</b></a> deliveres:
+If you add a valid **id** at the end of the URL, you should get an individual document. For example, http://localhost:10010/documents/2 deliveres:
 
 ```JSON
 {
@@ -74,9 +74,9 @@ If you add a valid **id** to the URL, you should get an individual document. For
 }
 ```
 
-An **invalid&nbsp;id** however, will result in an error message. For example, <a href="http://localhost:10010/documents/2002">http://localhost:10010/documents<b>/2002</b></a> deliveres:
+An **invalid&nbsp;id** however, will result in an error message. For example, http://localhost:10010/documents/2002 deliveres:
 
-```JSOn
+```JSON
 {
   "message": "The requested document with id 2002 could not be found. Please try another id."
 }
