@@ -1,0 +1,184 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Document RestAPI
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /documents:
+    x-swagger-router-controller: documents
+    post:
+      description: Add a new document
+      operationId: create
+      parameters:
+        - name: newDocument
+          description: Attributes of new document
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Document"
+      responses:
+        "201":
+          description: Successfully created
+          schema:
+            $ref: "#/definitions/Document"
+        default:
+          $ref: "#/responses/ErrorResponse"
+    get:
+      description: Get all available documents
+      operationId: readAll
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Document"
+        default:
+          $ref: "#/responses/ErrorResponse"
+  /documents/{id}:
+    x-swagger-router-controller: documents
+    get:
+      description: Get a document by its ID
+      operationId: readById
+      parameters:
+        - name: id
+          description: Document id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Document"
+        default:
+          $ref: "#/responses/ErrorResponse"
+    delete:
+      description: Delete a document by its ID
+      operationId: deleteById
+      parameters:
+        - name: id
+          description: Document id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          $ref: "#/responses/Response"
+        default:
+          $ref: "#/responses/ErrorResponse"
+    put:
+      description: Update an existing document by its ID or create a new one with the provided ID
+      operationId: updateOrCreate
+      parameters:
+        - name: id
+          description: Document id
+          type: number
+          in: path
+          required: true
+        - name: Document
+          description: New properties of existing document or properties of new document
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Document"
+      responses:
+        "200":
+          description: Successfully updated
+          schema:
+            $ref: "#/definitions/Document"
+        "201":
+          description: Successfully created
+          schema:
+            $ref: "#/definitions/Document"
+        default:
+          $ref: "#/responses/ErrorResponse"
+    patch:
+      description: Update some attributes of a document identified by its ID
+      operationId: updateById
+      parameters:
+        - name: id
+          description: Document id
+          type: number
+          in: path
+          required: true
+        - name: Document
+          description: Only those attributes of existing document, that should change.
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/DocumentOptional"
+      responses:
+        "200":
+          description: Successfully updated
+          schema:
+            $ref: "#/definitions/Document"
+        default:
+          $ref: "#/responses/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  # Model definition for a Document
+  Document:
+    properties:
+      # The Sequelize-ORM will add id, createdAt and updatedAt
+      title:
+        type: string
+        description: Title of the document
+      author:
+        type: string
+        description: Author of the document
+      content:
+        type: string
+        description: Content of the document
+    required:
+      - title
+      - author
+      - content
+  # Model definition for a Document with optional attributes (e.g. to patch some attributes)
+  DocumentOptional:
+    properties:
+      title:
+        type: string
+        description: Title of the document
+      author:
+        type: string
+        description: Author of the document
+      content:
+        type: string
+        description: Content of the document
+# response definitions:
+responses:
+  Response:
+    description: Success
+    schema:
+      type: object
+      properties:
+        success:
+          type: number
+        description:
+          type: string
+      required:
+        - success
+        - description
+  ErrorResponse:
+    description: Error
+    schema:
+      required:
+        - message
+      properties:
+        message:
+          type: string

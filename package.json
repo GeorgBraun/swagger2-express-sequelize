@@ -1,0 +1,27 @@
+{
+  "name": "swagger2-express-sequelize",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Example RestAPI with Swagger 2.0, Express, Sequelize and SQLite3",
+  "keywords": [],
+  "author": "Georg Braun",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.12.3",
+    "js-yaml": "^3.10.0",
+    "sequelize": "^4.31.2",
+    "sqlite3": "^3.1.13",
+    "swagger-express-mw": "^0.1.0",
+    "swagger-sequelize": "^0.1.2",
+    "swagger-ui-express": "^2.0.14"
+  },
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "swagger project test"
+  }
+}
