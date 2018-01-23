@@ -22,6 +22,8 @@ Therefore, we can focus on the remaining tasks:
   * Not for pure RestAPIs, only in case of some HTML-Responses: Design the View-Templates
 * Test the API
 
+<!-- 
 With the help of Swagger, its related tools, Swagger-Sequelize and Sequelize, we can focus on the design and documentation of the RestAPI and the implementation inside the controllers.
 
 All other modules can be auto-generated out the the Swagger API-Specification with the help of the Swagger tool chain, Swagger-Sequelize and Sequelize.
+ -->

@@ -72,7 +72,6 @@ basePath: /
 schemes:
   # tip: remove http to make production-grade
   - http
-  - https
 # format of bodies a client can send (Content-Type)
 consumes:
   - application/json
@@ -84,12 +83,10 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  # Model definition
+  # Model definition for a Document
   Document:
     properties:
-      id:
-        type: number
-        description: Unique Identifier representing a document
+      # The Sequelize-ORM will add id, createdAt and updatedAt
       title:
         type: string
         description: Title of the document
@@ -99,60 +96,54 @@ definitions:
       content:
         type: string
         description: Content of the document
+    required:
+      - title
+      - author
+      - content
 ```
 
-<!-- 
-  # Model definition
-  Documents:
-    type: array
-    items:
-      $ref: '#/definitions/Document'
--->
-
-Start the Swagger Editor Server with `swagger project edit` and navigate your web browser to http://localhost:52491/#!/ (the Express server is not needed, yet):<br>
+Start the Swagger Editor Server with `swagger project edit` This will autgomatically open the URL in your default browser (the Express server is not needed, yet):<br>
 
 <!-- ![](img/swagger-models-01.png) -->
-![](img/swagger-models-02.png)
+![](img/swagger-models-02.png)<br>
+_Note:_ The port number will vary from time to time.
 
 
-Swagger Spec-File erweitern
+Extend the Swagger Spec file:
+
+Between 
 
 ```yaml
-swagger: "2.0"
-info:
-  version: "0.0.1"
-  title: Document RestAPI
-# during dev, should point to your local machine
-host: localhost:10010
-# basePath prefixes all resource paths 
-basePath: /
-# 
-schemes:
-  # tip: remove http to make production-grade
-  - http
-  - https
-# format of bodies a client can send (Content-Type)
-consumes:
-  - application/json
-# format of the responses to the client (Accepts)
-produces:
-  - application/json
 paths:
+```
+
+and
+
+```yaml
+  /swagger:
+    x-swagger-pipe: swagger_raw
+```
+
+add the following paths:
+
+```yaml
   /documents:
     x-swagger-router-controller: documents
     post:
       description: Add a new document
       operationId: create
       parameters:
-        - name: document
-          description: Document properties
+        - name: newDocument
+          description: Attributes of new document
           in: body
           required: true
           schema:
             $ref: "#/definitions/Document"
       responses:
         "201":
-          $ref: "#/responses/Response"
+          description: Successfully created
+          schema:
+            $ref: "#/definitions/Document"
         default:
           $ref: "#/responses/ErrorResponse"
   /documents/{id}:
@@ -173,44 +164,14 @@ paths:
             $ref: "#/definitions/Document"
         default:
           $ref: "#/responses/ErrorResponse"
-  /swagger:
-    x-swagger-pipe: swagger_raw
-# complex objects have schema definitions
-definitions:
-  # Model definition
-  Document:
-    properties:
-      id:
-        type: number
-        description: Unique Identifier representing a document
-      title:
-        type: string
-        description: Title of the document
-      author:
-        type: string
-        description: Author of the document
-      content:
-        type: string
-        description: Content of the document
-    required:
-      - id
-      - title
-      - author
-      - content
+```
+
+At the very end of the file, add the following response definition:
+
+
+```yaml
 # response definitions:
 responses:
-  Response:
-    description: Success
-    schema:
-      type: object
-      properties:
-        success:
-          type: number
-        description:
-          type: string
-      required:
-        - success
-        - description
   ErrorResponse:
     description: Error
     schema:
@@ -219,6 +180,7 @@ responses:
       properties:
         message:
           type: string
+
 ```
 
 Neue Controller-Datei `api/controllers/documents.js`:
