@@ -86,6 +86,8 @@ An **invalid&nbsp;id** however, will result in an error message. For example, ht
 
 Navigate your browser to http://localhost:10010/api-docs/. You should see the Swagger&nbsp;UI for the RestAPI:
 
+![](docs/img/swagger-ui-01.png)
+
 **... to be continued ...**
 
 &nbsp;
