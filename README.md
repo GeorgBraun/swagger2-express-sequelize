@@ -1,20 +1,30 @@
 # Example RestAPI with Swagger 2.0, Express, Sequelize and SQLite3
 
-This example project demonstrates the use of Swagger-Node together with Express, Sequelize, Swagger-Sequelize and SQLite3 to build a little RestAPI for a "document server". The "documents" are simple objects with text attributes `title`, `author` and `content`. The project also includes a little tutorial.
+This beginners example project demonstrates the use of Swagger-Node together with Express, Sequelize, Swagger-Sequelize and SQLite3 to build a little RestAPI for a "document server". The "documents" are simple objects with text attributes `title`, `author` and `content`. The project also includes a little tutorial.
 
+
+## Table of contents
+
+* [Prerequisites](#prerequisites)
+* [Download and Installation](#download-and-installation)
+* [Run and explore the Server](#run-and-explore-the-server)
+  * [First Steps in the Browser](#first-steps-in-the-browser)
+  * [More Power with Swagger UI](#more-power-with-swagger-ui)
+* [More Documentation and Tutorial](#more-documentation-and-tutorial)
+* [Additional Information, Weblinks](#additional-information-weblinks)
 
 ## Prerequisites
 
 * If not done already: Install [NodeJS](https://nodejs.org) **v6** or higher on your computer.
 * If not done already: Install Swagger-Node by `npm install -g swagger` (only needed if you want to modify the server or follow the tutorial)
 
-## Install
+## Download and Installation
 
 * Clone this project with Git or download ZIP and unpack into your favorite working folder.
 * Open a terminal and change directory to the project folger, i.e. `swagger2-express-sequelize`.
 * Run `npm install` and wait until it's done.
 
-## Run and explore the server
+## Run and explore the Server
 
 Fire up a terminal in the project folder `swagger2-express-sequelize` (or use the one from installation) and enter
 
@@ -26,7 +36,7 @@ npm start
 
 You should now have a new server online at http://localhost:10010. However, if you browse to this location, you will get an error "Cannot GET /". This is because there is no end-point defined for the root location.
 
-### First steps in the browser
+### First Steps in the Browser
 
 Navigate your browser to http://localhost:10010/documents. You should get a JSON array with three documents:
 
@@ -82,7 +92,7 @@ An **invalid&nbsp;id** however, will result in an error message. For example, ht
 }
 ```
 
-### More power with Swagger UI
+### More Power with Swagger UI
 
 Navigate your browser to http://localhost:10010/api-docs/. You should see the Swagger&nbsp;UI for the RestAPI:
 
@@ -92,8 +102,15 @@ Navigate your browser to http://localhost:10010/api-docs/. You should see the Sw
 
 &nbsp;
 
+## More Documentation and Tutorial
 
-## Additional information
+&nbsp;
+
+**Todo: Insert a link to the documentation and tutorial.**
+
+&nbsp;
+
+## Additional Information, Weblinks
 
 * HTTP and RestAPIs:
   * REST API Quick Tips: http://www.restapitutorial.com/lessons/restquicktips.html
