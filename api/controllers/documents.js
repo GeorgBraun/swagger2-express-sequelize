@@ -1,35 +1,18 @@
 'use strict';
+console.log("====================================================");
+console.log("==== Datei "+__filename+"==================");
+console.log("====================================================");
 
-// Begin swagger-sequelize
-// An dieser Stelle UNSCHÖN, aber es funktioniert.
-var swaggerSequelize = require('swagger-sequelize');
-var fs        = require('fs');
-var Sequelize = require('sequelize');
-var yaml      = require('js-yaml');
-var path      = require("path");
-// var env       = process.env.NODE_ENV || "development";
-// var config    = require(path.join(__dirname, './sequelize_config', 'sequelize_config.json'))[env];
-// console.log("=======================config======================");
-// console.log(config);
-// console.log("===================================================");
+// For sequelize and swagger-sequelize:
+const swaggerSequelize = require("../models/swaggerSequelize");
 
-// Für SQLite:
-const sequelize = new Sequelize(/*database*/ undefined, /*username*/ undefined, /*password*/ undefined, { dialect: 'sqlite', storage: './db.sqlite', operatorsAliases: false });
+// Setup Sequelize-ORM for "Document":
+var DocumentModel =  swaggerSequelize.sequelize.define('Document', swaggerSequelize.swaggerSequelize.generate(swaggerSequelize.swaggerSpec.definitions.Document));
 
-// Read Swagger-API-Spec as YAML and convert it to Object:
-const swaggerSpec = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../../api/swagger/swagger.yaml'), 'utf8'));
-//var swaggerSpec = JSON.parse(fs.readFileSync(__dirname + '/../../api/swagger/swagger.json', 'utf-8'));
-
-swaggerSequelize.setDialect('sqlite');
-
-// ORM für "Document" einrichten:
-var DocumentModel =  sequelize.define('Document', swaggerSequelize.generate(swaggerSpec.definitions.Document));
-console.log("===================================================");
-
-// ... do stuff with MyModel e.g. to setup your tables:
+// Setup/sync database table:
 DocumentModel.sync({force: false})
-.then(() => { console.log("==================================================="); });
-// End swagger-sequelize
+.then(() => { console.log("==>> DocumentModel synched ============================================"); });
+
 
 module.exports = {
   create,
@@ -39,7 +22,8 @@ module.exports = {
   updateOrCreate,
   updateById
 };
-  
+
+
 function create(req, res) {
   const newDocument = req.body;
   console.log("Controller: documents.js; Function: create() mit newDocument:");

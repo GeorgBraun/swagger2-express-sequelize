@@ -16,6 +16,9 @@ const swaggerUi = require('swagger-ui-express');
 // Read Swagger-API-Spec as YAML and convert it to Object:
 const swaggerSpec = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './api/swagger/swagger.yaml'), 'utf8'));
 
+// For sequelize:
+const mySequelize = require("./api/models/swaggerSequelize");
+
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
 
