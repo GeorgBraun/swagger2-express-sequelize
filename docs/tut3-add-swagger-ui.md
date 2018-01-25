@@ -1,6 +1,6 @@
 # Beginner's Tutorial - Part 3: Add Swagger UI
 
-The **_Swagger Editor_** is great during development: You can edit your specification YAML file and imediately see the impact on the RestAPI via the integrated graphical user interface on the right half of the window.
+The **_Swagger Editor_** is great during development: You can edit your specification YAML file and immediately see the impact on the RestAPI via the integrated graphical user interface on the right half of the window.
 
 During production, you usually do **not** want to provide editing capabilities for the specification of your server. Therefore, you usually do not start _Swagger&nbsp;Editor_. 
 
@@ -68,7 +68,7 @@ With **_Swagger&nbsp;UI_**, you get a nice graphical documentation of your RestA
 
 During development, you now have the choice:
 1. Either use the **_Swagger&nbsp;Editor_** server to edit, inspect and test your RestAPI solely within the browser.
-1. Or, edit the `swagger.yaml` file in your favourite text editor and inspect and test it via **_Swagger&nbsp;UI_**.
+1. Or, edit the `swagger.yaml` file with your favourite text editor and inspect and test it via **_Swagger&nbsp;UI_**. Don't forget to reload your browser after you modified and saved `swagger.yaml`.
 
 
 **Where to go from here**

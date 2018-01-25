@@ -6,7 +6,7 @@ The following links provide a step-by-step tutorial to develop the document serv
 * [Part 2: Start your own API](./tut2-start-your-own-api.md)
 * [Part 3: Add Swagger UI](./tut3-add-swagger-ui.md)
 * [Part 4: Add a Database](./tut4-add-database.md)
-
+* [Part 5: Remaining Endpoints and Request-Handler](./tut5-remaining.md)
 
 <!-- 
 
