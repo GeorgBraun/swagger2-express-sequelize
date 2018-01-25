@@ -1,110 +1,117 @@
 'use strict';
-console.log("====================================================");
-console.log("==== Datei "+__filename+"==================");
-console.log("====================================================");
 
 // For sequelize and swagger-sequelize:
 const swaggerSequelize = require("../models/swaggerSequelize");
 
-// Setup Sequelize-ORM for "Document":
+// Setup Sequelize-ORM for "Document" based on Swagger API specification:
 var DocumentModel =  swaggerSequelize.sequelize.define('Document', swaggerSequelize.swaggerSequelize.generate(swaggerSequelize.swaggerSpec.definitions.Document));
 
 // Setup/sync database table:
+// force: false => If table already exists, don't touch or update it.
+// force: true  => Delete table if it exists. Then create a new table.
 DocumentModel.sync({force: false})
-.then(() => { console.log("==>> DocumentModel synched ============================================"); });
+.then(() => { console.log("==>> DocumentModel synched ====================================="); });
 
 
-module.exports = {
-  create,
-  readAll,
-  readById,
-  deleteById,
-  updateOrCreate,
-  updateById
-};
+// Just for Reference: List of important http status codes:
+// 200 OK
+// 201 CREATED
+// 204 NO CONTENT (Indicates success but nothing is in the response body, often used for DELETE and PUT operations.)
+// 400 BAD REQUEST (e.g. when data is missing or has wrong data type)
+// 401 UNAUTHORIZED (e.g. missing or invalid authentication token)
+// 403 FORBIDDEN (anlike a 401 Unauthorized response, authenticating will make no difference)
+// 404 NOT FOUND
+// 405 METHOD NOT ALLOWED (e.g. requested URL exists, but the requested HTTP method is not applicable. The Allow HTTP header must be set when returning a 405 to indicate the HTTP methods that are supported.
+// 409 CONFLICT (e.g. a resource conflict would be caused by fulfilling the request)
+// 500 INTERNAL SERVER ERROR (given when no more specific message is suitable)
+// 501 Not Implemented
 
 
-function create(req, res) {
-  const newDocument = req.body;
-  console.log("Controller: documents.js; Function: create() mit newDocument:");
-  console.log(newDocument);
 
-  // HIER: Datenbank-aufruf
-  DocumentModel.create(newDocument).then( (createdDocument) => {
+// The following controller methods are exported to be used by the API:
+
+module.exports.create = (req, res) => {
+  console.time("<<<<<< create()"); // Start time measurement
+  const reqDocument = req.body;
+  console.log("\n>>>>>> create() in controller documents.js");
+  console.log("reqDocument:", reqDocument);
+  //res.status(501).json({message:"NOT YET IMPLEMENTED"});
+
+  // Create a new document, put it into the database and respond with the newly created document:
+  DocumentModel.create(reqDocument).then( (createdDocument) => {
     res.status(201).json(createdDocument);
+    console.timeEnd("<<<<<< create()"); // End time measurement
   });
 }
 
-function readAll(req, res) {
-  console.log("Controller: documents.js; Function: readAll()");
+
+module.exports.readAll = (req, res) => {
+  console.time("<<<<<< readAll()"); // Start time measurement
+  console.log("\n>>>>>> readAll() in controller documents.js");
+  //res.status(501).json({message:"NOT YET IMPLEMENTED"});
   DocumentModel.findAll().then( (documents) => {
-    console.log("Controller: documents.js; Function: readAll(): Liefere Array mit",documents.length,"Elementen.");
-    res.json(documents);
+    console.log("Controller: documents.js; Function: readAll(): Responding with an array containing "+documents.length+" elements.");
+    res.status(200).json(documents);
+    console.timeEnd("<<<<<< readAll()"); // End time measurement
   });
 }
 
-function readById(req, res) {
-  const id = req.swagger.params.id.value;
-  console.log("Controller: documents.js; Function: readById() mit id:", id);
-  // Search document with provided id:
+
+module.exports.readById = (req, res) => {
+  console.time("<<<<<< readById()"); // Start time measurement
+  console.log("\n>>>>>> readById() in controller documents.js");
+  const reqId = req.swagger.params.id.value;
+  console.log("Requested id:", reqId);
+  //res.status(501).json({message:"NOT YET IMPLEMENTED"});
+
+  // Search document with provided reqId:
   DocumentModel
-    .findById(id) /* Allgemeine Suche: .find( { where: { id: id } } ) */
-    .then( (result) => {
-      if(result==null) {
-        // Document with id could not be found
-        console.log("Controller: documents.js; Function: readById() mit id:", id, "konnte NICHT gefunden werden.");
-        res.status(404).json({message:"The requested document with id "+id+" could not be found. Please try another id."});
-      } else {
-        console.log("Controller: documents.js; Function: readById(): Liefere Objekt");
-        console.log(result.dataValues);
-        res.json(result);
-      }
-    })
-    .catch( (error) => {
-      console.error("Controller: documents.js; Function: readById(): FEHLER");
-      console.error(error);
-    });
+  .findById(reqId) /* Mor generic search .find( { where: { id: reqId } } ) */
+  .then( (foundDocument) => {
+    if(foundDocument==null) {
+      // Document with reqId could not be found
+      console.log("Document with requested id "+reqId+" could NOT be found.");
+      res.status(404).json({message:"The requested document with id "+reqId+" could not be found. You may try another id."});
+      console.timeEnd("<<<<<< readById()"); // End time measurement
+    } else {
+      console.log("Document with requested id "+reqId+" is found. Responding with object");
+      console.log(foundDocument.dataValues);
+      res.json(foundDocument);
+      console.timeEnd("<<<<<< readById()"); // End time measurement
+    }
+  });
 }
 
-function deleteById(req, res) {
-  const id = req.swagger.params.id.value;
-  console.log("Controller: documents.js; Function: deleteById() mit id:", id);
-  DocumentModel
-    .destroy( { where: { id: id } })
-    .then( (destoryedCount) => {
-      if(destoryedCount==0) {
-        // Es wurde nichts gelöscht
-        console.log("Controller: documents.js; Function: deleteById() mit id:", id, "konnte NICHT gefunden werden.");
-        res.status(404).json({message:"The requested document with id "+id+" could not be found and is not deleted. Please try another id."});
-      } else {
-        // Es wurde gelöscht
-        console.log("Controller: documents.js; Function: deleteById(): Anzahl der gelöschten Objekte: "+destoryedCount);
-        res.json({ success:destoryedCount, description:"Document with id "+id+" is deleted." });
-      }
-    });
 
-  // // Search document with provided id:
-  // DocumentModel
-  //   .findById(id) /* Allgemeine Suche: .find( { where: { id: id } } ) */
-  //   .then( (result) => {
-  //     if(result==null) {
-  //       // Document with id could not be found
-  //       console.log("Controller: documents.js; Function: deleteById() mit id:", id, "konnte NICHT gefunden werden.");
-  //       res.status(404).json({message:"The requested document with id "+id+" could not be found. Please try another id."});
-  //     } else {
-  //       console.log("Controller: documents.js; Function: deleteById(): Lösche Objekt");
-  //       console.log(result.dataValues);
-  //       result.destroy();
-  //       res.json({ success:1, description:"Document with id "+id+" is deleted." });
-  //     }
-  //   })
-  //   .catch( (error) => {
-  //     console.error("Controller: documents.js; Function: readById(): FEHLER");
-  //     console.error(error);
-  //   });
+module.exports.deleteById = (req, res) => {
+  console.time("<<<<<< deleteById()"); // Start time measurement
+  console.log("\n>>>>>> deleteById() in controller documents.js");
+  const reqId = req.swagger.params.id.value;
+  console.log("Requested id:", reqId);
+  //res.status(501).json({message:"NOT YET IMPLEMENTED"});
+
+  DocumentModel
+  .destroy( { where: { id: reqId } })
+  .then( (destoryedCount) => {
+    if(destoryedCount==0) {
+      // Es wurde nichts gelöscht
+      console.log("Controller: documents.js; Function: deleteById() mit id:", reqId, "konnte NICHT gefunden werden.");
+      res.status(404).json({message:"The requested document with id "+reqId+" could not be found and is not deleted. You may try another id."});
+      console.timeEnd("<<<<<< deleteById()"); // End time measurement
+    } else {
+      // Es wurde gelöscht
+      console.log("Controller: documents.js; Function: deleteById(): Anzahl der gelöschten Objekte: "+destoryedCount);
+      res.json( {
+                  success: destoryedCount,
+                  description: "Document with id "+reqId+" is deleted."
+                });
+      console.timeEnd("<<<<<< deleteById()"); // End time measurement
+    }
+  });
 }
 
-function updateOrCreate(req, res) {
+
+module.exports.updateOrCreate = (req, res) => {
   const reqId = req.swagger.params.id.value;
   const reqDocument = req.body;
   console.log("Controller: documents.js; Function: updateOrCreate() mit reqDocument:");
@@ -131,15 +138,15 @@ function updateOrCreate(req, res) {
               // Success: id has been changed. Need to read latest values from data base:
               DocumentModel
               .findById(reqId) /* Allgemeine Suche: .find( { where: { id: reqId } } ) */
-              .then( (result) => {
-                if(result==null) {
+              .then( (foundDocument) => {
+                if(foundDocument==null) {
                   // PROBLEM: Id could not be updated, even though affectedRowsCount indicates, it is:
                   throw new Error("ERROR in updateOrCreate(): New document with id "+createdId+" should have been updated to new id "+reqId+", but is not ...");
                 } else {
                   // Status code 201: Successfully created (and updated)
                   console.log("Controller: documents.js; Function: updateOrCreate(), neues document wurde erzeugt, id wurde korrigiert:");
-                  console.log(result.dataValues);
-                  res.status(201).json(result);
+                  console.log(foundDocument.dataValues);
+                  res.status(201).json(foundDocument);
                 }
               })
             } else {
@@ -160,10 +167,10 @@ function updateOrCreate(req, res) {
     })
 }
 
-function updateById(req, res) {
+module.exports.updateById = (req, res) => {
   const reqId = req.swagger.params.id.value;
   const reqDocument = req.body;
-  console.log("Controller: documents.js; Function: updateById() mit reqId "+reqId+" und reqDocument:");
+  console.log("Controller: documents.js; Function: updateById() with reqId "+reqId+" and reqDocument:");
   console.log(reqDocument);
   //res.status(501).json({message:"NOT YET IMPLEMENTED"});
 
@@ -173,7 +180,7 @@ function updateById(req, res) {
       if(foundDocument==null) {
         // Document with reqId could not be found
         console.log("Controller: documents.js; Function: updateById() mit reqId:", reqId, "konnte NICHT gefunden werden.");
-        res.status(404).json({message:"The requested document with id "+reqId+" could not be found. Please try another id."});
+        res.status(404).json({message:"The requested document with id "+reqId+" could not be found. You may try another id."});
       } else {
         foundDocument.updateAttributes(reqDocument).then( (updatedDocument) => {
           // Status Code 200: Successfully updated
