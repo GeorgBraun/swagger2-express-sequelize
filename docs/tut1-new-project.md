@@ -41,13 +41,13 @@ run `swagger project create swagger2-express-sequelize` and select "Express" as 
     * Save the file. The Express Server will automatically be restarted.
     * In the UI part of the Swagger Editor, make sure that the field "name" is empty. Then, click on the button "send&nbsp;request". You should see `"Hello, cool stranger!"` as the response.<br>
     ![](img/swagger-editor-04.png.png)
-* Terminate both, the Express Server and the Swagger Editor server with <kbd>ctrl</kbd>+<kbd>c</kbd> in each terminal.
+* Terminate both, the _Express Server_ and the _Swagger Editor_ server with <kbd>ctrl</kbd>+<kbd>c</kbd> in each terminal.
 
 
 
 ## Summary
 
-In this section, we created a new swagger project for the express framework. We fired up two servers:
+In this part, we created a new swagger project for the express framework. We fired up two servers:
 * the **_Express Server_** for our "real" API with auto-reload capability.
 * the **_Swagger Editor_** server for modifying the swagger spec file and for running http requests against the exress server.
 
@@ -56,5 +56,7 @@ We learned that the Swagger spec file is served from `api/swagger/swagger.yaml` 
 
 **Where to go from here**
 
-* Continue with "[Part 2: Start your own API](./tut2-start-your-own-api.md)"
-* Go back to the "[Beginner's Tutorial Overview Page](./tutorial.md)"
+Please continue with "[Part 2: Start your own API](./tut2-start-your-own-api.md)"
+
+Alternatively, you can jump to the "[Beginner's Tutorial Overview Page](./tutorial.md)".
+
