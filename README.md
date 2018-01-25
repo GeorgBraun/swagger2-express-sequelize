@@ -34,7 +34,9 @@ npm start
 
 (_Note:_ This command is translated into `node app.js` via `package.json`)
 
-You should now have a new server online at http://localhost:10010. However, if you browse to this location, you will get an error "Cannot GET /". This is because there is no end-point defined for the root location.
+You should now have a new server online at http://localhost:10010 showing the **_Swagger&nbsp;UI_** for the RestAPI:
+
+![](docs/img/swagger-ui-01.png)
 
 ### First Steps in the Browser
 
@@ -94,7 +96,7 @@ An **invalid&nbsp;id** however, will result in an error message. For example, ht
 
 ### More Power with Swagger UI
 
-Navigate your browser to http://localhost:10010/api-docs/. You should see the Swagger&nbsp;UI for the RestAPI:
+Navigate your browser to http://localhost:10010. You should see the Swagger&nbsp;UI for the RestAPI:
 
 ![](docs/img/swagger-ui-01.png)
 
@@ -104,7 +106,11 @@ Navigate your browser to http://localhost:10010/api-docs/. You should see the Sw
 
 ## More Documentation and Tutorial
 
-&nbsp;
+More documentation and a beginner's tutorial can be found at
+
+* [Overview: Architecture and Tools](./docs/arch_tools.md)
+* [Beginner's Tutorial: RestAPI with Swagger, Express, Sequelize and SQLite](./docs/tutorial.md)
+
 
 **Todo: Insert a link to the documentation and tutorial.**
 
@@ -116,6 +122,7 @@ Navigate your browser to http://localhost:10010/api-docs/. You should see the Sw
   * REST API Quick Tips: http://www.restapitutorial.com/lessons/restquicktips.html
   * Using HTTP Methods for RESTful Services: http://www.restapitutorial.com/lessons/httpmethods.html
   * Resource Naming: http://www.restapitutorial.com/lessons/restfulresourcenaming.html
+  * HTTP Status Codes: http://www.restapitutorial.com/httpstatuscodes.html
 * Swagger
   * HomePage: https://swagger.io/
   * Swagger 2.0 documentation: https://swagger.io/docs/specification/2-0/basic-structure/
