@@ -349,8 +349,7 @@ module.exports.updateOrCreate = (req, res) => {
                 throw new Error("ERROR in updateOrCreate(): New document with id "+createdId+" should have been updated to new id "+reqId+", but is not ...");
               } else {
                 // Status code 201: Successfully created (and updated)
-                console.log("New document has been created, id has been corrected:", document.dataValues);
-                console.log(foundDocument.dataValues);
+                console.log("New document has been created, id has been corrected:", foundDocument.dataValues);
                 res.status(201).json(foundDocument);
                 console.timeEnd("<<<<<< updateOrCreate()"); // End time measurement
               }
@@ -403,6 +402,10 @@ module.exports.updateById = (req, res) => {
 }
 
 ```
+
+&nbsp;
+
+Todo: Add a lot of explanation ...
 
 &nbsp;
 
