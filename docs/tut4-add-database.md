@@ -274,6 +274,8 @@ In this part, we added a SQLite3 database with **Sequelize** as our ORM and **Sw
 
 We tested our implementation by adding a first document via HTTP-POST and retrieving it via HTTP-GET.
 
+We are able to inspect the SQLite3 database file `db.sqlite` with the help of ["DB Browser for SQLite"](http://sqlitebrowser.org/).
+
 ## Where to go from here
 
 Please continue with "[Part 5: Remaining Endpoints and Request-Handler](./tut5-remaining.md)".

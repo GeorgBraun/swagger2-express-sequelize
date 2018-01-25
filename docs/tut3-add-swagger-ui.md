@@ -71,7 +71,7 @@ During development, you now have the choice:
 1. Or, edit the `swagger.yaml` file with your favourite text editor and inspect and test it via **_Swagger&nbsp;UI_**. Don't forget to reload your browser after you modified and saved `swagger.yaml`.
 
 
-**Where to go from here**
+## Where to go from here
 
 Please continue with "[Part 4: Add a Database](./tut4-add-database.md)".
 

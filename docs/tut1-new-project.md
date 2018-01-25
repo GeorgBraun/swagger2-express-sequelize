@@ -54,7 +54,7 @@ In this part, we created a new swagger project for the express framework. We fir
 We learned that the Swagger spec file is served from `api/swagger/swagger.yaml` and that the response behaviour of the server is defined in the controller file `api/controllers/hello_world.js`.
 
 
-**Where to go from here**
+## Where to go from here
 
 Please continue with "[Part 2: Start your own API](./tut2-start-your-own-api.md)".
 

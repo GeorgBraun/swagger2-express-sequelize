@@ -210,7 +210,7 @@ For now, terminate both, the _Express Server_ and the _Swagger Editor_ server wi
 
 In this part, we started our own API specification with two URL-endpoints, implemented a corresponding controller and did some first tests with the server.
 
-**Where to go from here**
+## Where to go from here
 
 Please continue with "[Part 3: Add Swagger UI](./tut3-add-swagger-ui.md)".
 
