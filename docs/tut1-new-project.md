@@ -40,7 +40,7 @@ run `swagger project create swagger2-express-sequelize` and select "Express" as 
       `var name = req.swagger.params.name.value || 'cool stranger';`
     * Save the file. The Express Server will automatically be restarted.
     * In the UI part of the Swagger Editor, make sure that the field "name" is empty. Then, click on the button "send&nbsp;request". You should see `"Hello, cool stranger!"` as the response.<br>
-    ![](img/swagger-editor-04.png.png)
+    ![](img/swagger-editor-04.png)
 * Terminate both, the _Express Server_ and the _Swagger Editor_ server with <kbd>ctrl</kbd>+<kbd>c</kbd> in each terminal.
 
 
