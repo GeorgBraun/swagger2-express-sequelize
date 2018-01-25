@@ -8,16 +8,16 @@ var config = {
   appRoot: __dirname // required config
 };
 
-// Für Swagger UI Express
+// For Swagger UI Express
 const yaml      = require('js-yaml');
 const path      = require("path");
 const fs        = require('fs');
 const swaggerUi = require('swagger-ui-express');
-// Read Swagger-API-Spec as YAML and convert it to Object:
+// Read Swagger-API-Spec as YAML and convert it to a JavaScript object:
 const swaggerSpec = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './api/swagger/swagger.yaml'), 'utf8'));
 
-// For sequelize:
-const mySequelize = require("./api/models/swaggerSequelize");
+// Initialize sequelize and swagger-sequelize:
+const swaggerSequelize = require("./api/models/swaggerSequelize");
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
@@ -25,8 +25,8 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   // install middleware
   swaggerExpress.register(app);
 
-  // Für Swagger UI Express
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  // For Swagger UI Express
+  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   var port = process.env.PORT || 10010;
   app.listen(port);
