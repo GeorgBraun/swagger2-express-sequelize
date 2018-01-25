@@ -89,3 +89,4 @@ add the following two lines
 const swaggerSequelize = require("./api/models/swaggerSequelize");
 ```
 
+... to be continued ...

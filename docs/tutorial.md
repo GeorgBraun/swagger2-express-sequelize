@@ -8,9 +8,7 @@ The following links provide a step-by-step tutorial to develop the document serv
 * [Step 4: Add a Database](./tut4-add-database.md)
 
 
-
-
-
+<!-- 
 
 ## Add additional Modules
 
@@ -101,3 +99,4 @@ function generate (schema) {
 * Sequelize
   * Documenation: http://docs.sequelizejs.com/
   * GitHub: https://github.com/sequelize/sequelize.git
+-->
