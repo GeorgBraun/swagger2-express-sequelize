@@ -212,6 +212,6 @@ In this part, we started our own API specification with two URL-endpoints, imple
 
 **Where to go from here**
 
-Please continue with "[Part 3: Add Swagger UI](./tut3-add-swagger-ui.md)"
+Please continue with "[Part 3: Add Swagger UI](./tut3-add-swagger-ui.md)".
 
 Alternatively, you can go back to the previous "[Part 1: A new Swagger Project](./tut1-new-project.md)" or jump to the "[Beginner's Tutorial Overview Page](./tutorial.md)".

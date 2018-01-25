@@ -56,7 +56,7 @@ We learned that the Swagger spec file is served from `api/swagger/swagger.yaml` 
 
 **Where to go from here**
 
-Please continue with "[Part 2: Start your own API](./tut2-start-your-own-api.md)"
+Please continue with "[Part 2: Start your own API](./tut2-start-your-own-api.md)".
 
 Alternatively, you can jump to the "[Beginner's Tutorial Overview Page](./tutorial.md)".
 

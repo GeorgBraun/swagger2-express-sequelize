@@ -9,12 +9,12 @@ var config = {
 };
 
 // For Swagger UI Express
-const yaml      = require('js-yaml');
+const jsyaml    = require('js-yaml');
 const path      = require("path");
 const fs        = require('fs');
 const swaggerUi = require('swagger-ui-express');
 // Read Swagger-API-Spec as YAML and convert it to a JavaScript object:
-const swaggerSpec = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './api/swagger/swagger.yaml'), 'utf8'));
+const swaggerSpec = jsyaml.safeLoad(fs.readFileSync(path.join(__dirname, './api/swagger/swagger.yaml'), 'utf8'));
 
 // Initialize sequelize and swagger-sequelize:
 const swaggerSequelize = require("./api/models/swaggerSequelize");
