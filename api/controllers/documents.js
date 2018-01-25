@@ -94,13 +94,13 @@ module.exports.deleteById = (req, res) => {
   .destroy( { where: { id: reqId } })
   .then( (destoryedCount) => {
     if(destoryedCount==0) {
-      // Es wurde nichts gelöscht
-      console.log("Controller: documents.js; Function: deleteById() mit id:", reqId, "konnte NICHT gefunden werden.");
-      res.status(404).json({message:"The requested document with id "+reqId+" could not be found and is not deleted. You may try another id."});
+      // Strange ... the document could not be deleted:
+      console.log("Document with requested id "+reqId+" could NOT be deleted!");
+      res.status(404).json({message:"The requested document with id "+reqId+" could not be deleted. You may try another id."});
       console.timeEnd("<<<<<< deleteById()"); // End time measurement
     } else {
-      // Es wurde gelöscht
-      console.log("Controller: documents.js; Function: deleteById(): Anzahl der gelöschten Objekte: "+destoryedCount);
+      // Successfully deleted ...
+      console.log("Document with requested id "+reqId+" is deleted! Number of deleted objects: "+destoryedCount);
       res.json( {
                   success: destoryedCount,
                   description: "Document with id "+reqId+" is deleted."
@@ -112,82 +112,89 @@ module.exports.deleteById = (req, res) => {
 
 
 module.exports.updateOrCreate = (req, res) => {
+  console.time("<<<<<< updateOrCreate()"); // Start time measurement
+  console.log("\n>>>>>> updateOrCreate() in controller documents.js");
   const reqId = req.swagger.params.id.value;
   const reqDocument = req.body;
-  console.log("Controller: documents.js; Function: updateOrCreate() mit reqDocument:");
-  console.log(reqDocument);
+  console.log("Requested id:", reqId);
+  console.log("Requested contents:", reqDocument);
   //res.status(501).json({message:"NOT YET IMPLEMENTED"});
   DocumentModel
-    .findOrCreate( { where: { id: reqId }, defaults: reqDocument })
-    .spread( (document, created) => {
-      if(created) {
-        // Neues Document wurde erzeugt, aber vermutlich mit falscher id:
-        let createdId = document.id;
-        if(createdId===reqId) {
-          console.log("createdId AND reqId: "+createdId);
-          // Status code 201: Successfully created
-          console.log("Controller: documents.js; Function: updateOrCreate(), neues document wurde erzeugt:");
-          console.log(document.dataValues);
-          res.status(201).json(document);
-        } else {
-          console.warn("createdId:"+createdId+" BUT reqId:"+reqId);
-          // To change the id, document.updateAttributes() is not enough.
-          // We need DocumentModle.update() for this:
-          DocumentModel.update({id:reqId}, {where: {id:createdId}}).then( (affectedRowsCount) => {
-            if(affectedRowsCount>0) {
-              // Success: id has been changed. Need to read latest values from data base:
-              DocumentModel
-              .findById(reqId) /* Allgemeine Suche: .find( { where: { id: reqId } } ) */
-              .then( (foundDocument) => {
-                if(foundDocument==null) {
-                  // PROBLEM: Id could not be updated, even though affectedRowsCount indicates, it is:
-                  throw new Error("ERROR in updateOrCreate(): New document with id "+createdId+" should have been updated to new id "+reqId+", but is not ...");
-                } else {
-                  // Status code 201: Successfully created (and updated)
-                  console.log("Controller: documents.js; Function: updateOrCreate(), neues document wurde erzeugt, id wurde korrigiert:");
-                  console.log(foundDocument.dataValues);
-                  res.status(201).json(foundDocument);
-                }
-              })
-            } else {
-              // PROBLEM: Id could not be updated!
-              throw new Error("ERROR in updateOrCreate(): New document with id "+createdId+" could not be updated to new id "+reqId);
-            }
-          })
-        }
+  .findOrCreate( { where: { id: reqId }, defaults: reqDocument })
+  .spread( (document, created) => {
+    if(created) {
+      // New document has been created, but most likely with wrong id:
+      let createdId = document.id;
+      if(createdId===reqId) {
+        console.log("createdId AND reqId: "+createdId);
+        // Status code 201: Successfully created
+        console.log("New document has been created:", document.dataValues);
+        res.status(201).json(document);
+        console.timeEnd("<<<<<< updateOrCreate()"); // End time measurement
       } else {
-        // Document wurde gefunden. Jetzt muss es noch aktualisiert werden:
-        document.updateAttributes(reqDocument).then( (updatedDocument) => {
-          // Status Code 200: Successfully updated
-          console.log("Controller: documents.js; Function: updateOrCreate(), existierendes document wurde geändert:");
-          console.log(updatedDocument.dataValues);
-          res.json(updatedDocument);        
-        });
+        console.warn("createdId:"+createdId+" BUT reqId:"+reqId);
+        // To change the id, document.updateAttributes() is not enough.
+        // We need DocumentModle.update() for this:
+        DocumentModel.update({id:reqId}, {where: {id:createdId}}).then( (affectedRowsCount) => {
+          if(affectedRowsCount>0) {
+            // Success: id has been changed. Need to read latest values from data base:
+            DocumentModel
+            .findById(reqId) /* Allgemeine Suche: .find( { where: { id: reqId } } ) */
+            .then( (foundDocument) => {
+              if(foundDocument==null) {
+                // PROBLEM: Id could not be updated, even though affectedRowsCount indicates, it is:
+                console.timeEnd("<<<<<< updateOrCreate()"); // End time measurement
+                throw new Error("ERROR in updateOrCreate(): New document with id "+createdId+" should have been updated to new id "+reqId+", but is not ...");
+              } else {
+                // Status code 201: Successfully created (and updated)
+                console.log("New document has been created, id has been corrected:", foundDocument.dataValues);
+                res.status(201).json(foundDocument);
+                console.timeEnd("<<<<<< updateOrCreate()"); // End time measurement
+              }
+            })
+          } else {
+            // PROBLEM: Id could not be updated!
+            console.timeEnd("<<<<<< updateOrCreate()"); // End time measurement
+            throw new Error("ERROR in updateOrCreate(): New document with id "+createdId+" could not be updated to new id "+reqId);
+          }
+        })
       }
-    })
+    } else {
+      // Document has been found. Need to update:
+      document.updateAttributes(reqDocument).then( (updatedDocument) => {
+        // Status Code 200: Successfully updated
+        console.log("Existing document has been updated:", updatedDocument.dataValues);
+        res.json(updatedDocument);        
+        console.timeEnd("<<<<<< updateOrCreate()"); // End time measurement
+      });
+    }
+  });
 }
 
 module.exports.updateById = (req, res) => {
+  console.time("<<<<<< updateById()"); // Start time measurement
+  console.log("\n>>>>>> updateById() in controller documents.js");
   const reqId = req.swagger.params.id.value;
   const reqDocument = req.body;
-  console.log("Controller: documents.js; Function: updateById() with reqId "+reqId+" and reqDocument:");
-  console.log(reqDocument);
+  console.log("Requested id:", reqId);
+  console.log("Requested contents:", reqDocument);
   //res.status(501).json({message:"NOT YET IMPLEMENTED"});
 
   DocumentModel
-    .findById(reqId) /* Allgemeine Suche: .find( { where: { id: id } } ) */
-    .then( (foundDocument) => {
-      if(foundDocument==null) {
-        // Document with reqId could not be found
-        console.log("Controller: documents.js; Function: updateById() mit reqId:", reqId, "konnte NICHT gefunden werden.");
-        res.status(404).json({message:"The requested document with id "+reqId+" could not be found. You may try another id."});
-      } else {
-        foundDocument.updateAttributes(reqDocument).then( (updatedDocument) => {
-          // Status Code 200: Successfully updated
-          console.log("Controller: documents.js; Function: updateById(), existierendes document wurde geändert:");
-          console.log(updatedDocument.dataValues);
-          res.json(updatedDocument);        
-        });
-      }
-    })
+  .findById(reqId) /* More generic search would be: .find( { where: { id: id } } ) */
+  .then( (foundDocument) => {
+    if(foundDocument==null) {
+      // Document with reqId could not be found
+      console.log("Document with requested id "+reqId+" could NOT be found.");
+      res.status(404).json({message:"The requested document with id "+reqId+" could not be found. You may try another id."});
+      console.timeEnd("<<<<<< updateById()"); // End time measurement
+    } else {
+      foundDocument.updateAttributes(reqDocument).then( (updatedDocument) => {
+        // Status Code 200: Successfully updated
+        console.log("Existing document has been updated:", updatedDocument.dataValues);
+        res.json(updatedDocument);        
+        console.timeEnd("<<<<<< updateById()"); // End time measurement
+      });
+    }
+  });
 }
