@@ -414,7 +414,7 @@ Save both files. If the express server is still running, it will reload automati
 
 Reload the **_Swagger&nbsp;UI_** in your browser and try all possible endpoints which are now available. Take a look at the debug outputs in the terminal and at the database file `db.sqlite`, e.g. with ["DB Browser for SQLite"](http://sqlitebrowser.org/).
 
-![](docs/img/swagger-ui-01.png)
+![](img/swagger-ui-01.png)
 
 ## Where to go from here
 
