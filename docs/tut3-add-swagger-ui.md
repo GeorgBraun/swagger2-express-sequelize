@@ -6,7 +6,7 @@ During production, you usually do **not** want to provide editing capabilities f
 
 ## Add Swagger UI to your Project
 
-In order to still have a nice UI which explains your API and allows you to exercise it, we need to add the **_Swagger UI_** to the project:
+In order to still have a nice UI which explains your API and allows you to exercise it, we need to add the **_Swagger UI_** to the project (make sure that all servers have been terminated, e.g. with <kbd>ctrl</kbd>+<kbd>c</kbd>):
 
 ```
 npm install --save swagger-ui-express
@@ -61,6 +61,11 @@ Click on the button <kbd>POST</kbd> and then on <kbd>Try&nbsp;it&nbsp;out</kbd>.
 
 ![](img/swagger-ui-03.png)
 
+&nbsp;
+
+Terminate the _Express Server_ (the one started above with `swagger project start`) with <kbd>ctrl</kbd>+<kbd>c</kbd> in the corresponding terminal.
+
+&nbsp;
 
 ## Summary
 

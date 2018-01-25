@@ -21,7 +21,7 @@ Luckily, there is a node module **_Swagger-Sequelize_** which takes care of this
 
 ## Node Modules for your Database
 
-Execute the following commands in a terminal within your project folder:
+Execute the following commands in a terminal within your project folder (make sure that all servers have been terminated, e.g. with <kbd>ctrl</kbd>+<kbd>c</kbd>):
 
 ```
 npm install --save sequelize
@@ -267,6 +267,11 @@ Document with requested id 4 could NOT be found.
 <<<<<< readById(): 15.341ms
 ```
 
+&nbsp;
+
+Terminate the _Express Server_ (the one started above with `swagger project start`) with <kbd>ctrl</kbd>+<kbd>c</kbd> in the corresponding terminal.
+
+&nbsp;
 
 ## Summary
 

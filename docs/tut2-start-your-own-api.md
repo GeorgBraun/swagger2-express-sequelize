@@ -111,7 +111,7 @@ with the following paths (or URL-endpoints):
           $ref: "#/responses/ErrorResponse"
 ```
 
-Note that the first new line `&nbsp;&nbsp;/documents` starts with two spaces.
+Note that the first new line <code style="white-space:pre;">  /documents</code> starts with two spaces.
 
 At the very end of the file, add the following response definition:
 

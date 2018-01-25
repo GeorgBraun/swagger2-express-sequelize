@@ -416,8 +416,30 @@ Reload the **_Swagger&nbsp;UI_** in your browser and try all possible endpoints 
 
 ![](img/swagger-ui-01.png)
 
+&nbsp;
+
+Don't forget to terminate your servers (e.g. with <kbd>ctrl</kbd>+<kbd>c</kbd> in the corresponding terminal) when you are done.
+
+&nbsp;
+
 ## Where to go from here
 
 Congratulations, you are done!
 
 If you want, you can go back to the previous "[Part 4: Add a Database](./tut4-add-database.md)" or jump to the "[Beginner's Tutorial Overview Page](./tutorial.md)".
+
+## Additional Information, Weblinks
+
+In case you want to know more: The internet is full of great tools, documentation sites and tutorials about RestAPIs, Swagger (i.e. OpenAPI), Express and Sequelize. The following list provides just a small number of readings, that might come handy during your own developement journey:
+
+* HTTP and RestAPIs:
+  * REST API Quick Tips: http://www.restapitutorial.com/lessons/restquicktips.html
+  * Using HTTP Methods for RESTful Services: http://www.restapitutorial.com/lessons/httpmethods.html
+  * Resource Naming: http://www.restapitutorial.com/lessons/restfulresourcenaming.html
+  * HTTP Status Codes: http://www.restapitutorial.com/httpstatuscodes.html
+* Swagger
+  * HomePage: https://swagger.io/
+  * Swagger 2.0 documentation: https://swagger.io/docs/specification/2-0/basic-structure/
+* Sequelize
+  * Documenation: http://docs.sequelizejs.com/
+  * GitHub: https://github.com/sequelize/sequelize.git
