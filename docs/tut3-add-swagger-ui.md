@@ -1,4 +1,4 @@
-# Beginner's Tutorial - Step 3: Add Swagger UI
+# Beginner's Tutorial - Part 3: Add Swagger UI
 
 
 Add Swagger UI Express: This allows you to exercise the API without running the Swagger Editor Server

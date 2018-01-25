@@ -2,10 +2,10 @@
 
 The following links provide a step-by-step tutorial to develop the document server of this project from scratch and your own.
 
-* [Step 1: A new Swagger Project](./tut1-new-project.md)
-* [Step 2: Start your own API](./tut2-start-your-own-api.md)
-* [Step 3: Add Swagger UI](./tut3-add-swagger-ui.md)
-* [Step 4: Add a Database](./tut4-add-database.md)
+* [Part 1: A new Swagger Project](./tut1-new-project.md)
+* [Part 2: Start your own API](./tut2-start-your-own-api.md)
+* [Part 3: Add Swagger UI](./tut3-add-swagger-ui.md)
+* [Part 4: Add a Database](./tut4-add-database.md)
 
 
 <!-- 

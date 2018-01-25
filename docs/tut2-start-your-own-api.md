@@ -1,4 +1,4 @@
-# Beginner's Tutorial - Step 2: Start your own API
+# Beginner's Tutorial - Part 2: Start your own API
 
 ## Spec Sceleton and Model Definition
 

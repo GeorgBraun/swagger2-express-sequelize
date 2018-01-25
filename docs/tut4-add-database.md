@@ -1,4 +1,4 @@
-# Beginner's Tutorial - Step 4: Add a Database
+# Beginner's Tutorial - Part 4: Add a Database
 
 For the sake of simplicity, this project uses SQLite3. It comes with a local database file which is used solely by this project. It does not require any database installation like MySQL, MariaDB or PostgreSQL.
 
