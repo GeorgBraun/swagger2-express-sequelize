@@ -112,8 +112,6 @@ More documentation and a beginner's tutorial can be found at
 * [Beginner's Tutorial: RestAPI with Swagger, Express, Sequelize and SQLite](./docs/tutorial.md)
 
 
-**Todo: Insert a link to the documentation and tutorial.**
-
 &nbsp;
 
 ## Additional Information, Weblinks
