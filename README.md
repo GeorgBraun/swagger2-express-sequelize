@@ -7,6 +7,7 @@ This beginners example project demonstrates the use of Swagger-Node together wit
 
 * [Prerequisites](#prerequisites)
 * [Download and Installation](#download-and-installation)
+* [Storage Space Requirements](#storage-space-requirements)
 * [Run and explore the Server](#run-and-explore-the-server)
   * [First Steps in the Browser](#first-steps-in-the-browser)
   * [More Power with Swagger UI](#more-power-with-swagger-ui)
@@ -23,6 +24,21 @@ This beginners example project demonstrates the use of Swagger-Node together wit
 * Clone this project with Git or download ZIP and unpack into your favorite working folder.
 * Open a terminal and change directory to the project folger, i.e. `swagger2-express-sequelize`.
 * Run `npm install` and wait until it's done.
+
+
+## Storage Space Requirements
+
+Just for reference, the storage space requirements of the main modules (especially driven by the `node_modules` folder) are summarized in the following table:
+
+| Node Modules | Size |
+|:-------------|:-----|
+| Bare project with Swagger and Express (and dependencies)                           | 23&nbsp;MByte |
+| Adding "Swagger&nbsp;UI" via "swagger-ui-express" (and remaining dependencies)     | 15&nbsp;MByte |
+| Adding "Sequelize", "SQLite3" and "Swagger-Sequelize" (and remaining dependencies) | 21&nbsp;MByte |
+| **Total**                                                                      | **59&nbsp;MByte** |
+
+The above numbers are taken from a Windows-10 system. The actual space requirements on the harddrive are slightly larger. This is because many files in the `node_modules` folder are smaller than the stanrard cluster size of 4&nbsp;kByte.
+
 
 ## Run and explore the Server
 
