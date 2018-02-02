@@ -36,7 +36,13 @@ paths:
         default:
           $ref: "#/responses/ErrorResponse"
     get:
-      description: Get all available documents
+      security:
+        - UserSecurity: []
+      description: |
+        Get all available documents
+
+        **You need to login with "ttt" (enter as API-Key).**
+
       operationId: readAll
       responses:
         "200":
@@ -160,6 +166,11 @@ definitions:
       content:
         type: string
         description: Content of the document
+securityDefinitions:
+  UserSecurity:
+    type: apiKey
+    in: header
+    name: USER-API-KEY
 # response definitions:
 responses:
   Response:
